@@ -17,9 +17,6 @@ public class Main {
         GridSingleton.getInstance().revealAllCells();
         GridSingleton.getInstance().renderGrid();
 
-
-
-
     }
 
 }
