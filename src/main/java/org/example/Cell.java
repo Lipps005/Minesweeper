@@ -1,14 +1,12 @@
 package org.example;
 
-import java.util.Random;
-
 public class Cell
 {
     private static int minedCells = 10;
 
-    int hasMine = -1;
-    int revealed = -1;
-    int mineCount = 0;
+    public int hasMine = -1;
+    public int revealed = -1;
+    public int mineCount = 0;
 
     public Cell()
     {
