@@ -1,7 +1,9 @@
 package org.example;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestCell
 {
@@ -10,13 +12,13 @@ public class TestCell
     public void testCellIsCreated()
     {
 
-        Assertions.assertInstanceOf(Cell.class, testCell, "object of type Cell not created");
+        assertInstanceOf(Cell.class, testCell, "object of type Cell not created");
     }
 
     @Test
     public void testCellHasMine()
     {
-        Assertions.assertTrue(testCell.hasMine == 1, "first cell not instantiated with a mine");
+        assertTrue(testCell.hasMine == 1, "first cell not instantiated with a mine");
     }
 
 
