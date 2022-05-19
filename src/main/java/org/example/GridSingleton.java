@@ -28,7 +28,7 @@ public class GridSingleton
 
     private static final char[] Grid = GridTemplate.toCharArray();
 
-    private final Cell[] gridCells = new Cell[64];
+    private Cell[] gridCells = new Cell[64];
     private GridSingleton()
     {
         //generate new Cells
@@ -43,39 +43,68 @@ public class GridSingleton
             Cell tempCell = gridCells[j];
             gridCells[j] = gridCells[i];
             gridCells[i] = tempCell;
-            //System.out.println(gridCells[i].hasMine);
+
         }
 
         //update each cell with mine count
+
         for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
                 int mineCount = 0;
-                //-1, -1 (top left)
-                mineCount += gridCells[(8*(i-1) + j-1) < 0 ||(8*(i-1) + j-1) >= 64 ? 0 : (8*(i-1) + j-1) ].hasMine == 1 ? 1 : 0;
+                //i*8 + j = current index
+                if(j+1 < 8)
+                {
+                    //middle right
+                    mineCount += (gridCells[(i * 8) + j + 1].hasMine == 1) ? 1 : 0;
+                }
+                if(j-1 > -1 && ((i * 8) + j - 1) >= i*8 )
+                {
+                    //middle left
+                    mineCount += (gridCells[(i * 8) + j - 1].hasMine == 1) ? 1 : 0;
+                }
+                if((((i * 8) + j+7) > (i+1) * 8 ) && ((i * 8) + j+7) < 64 )
+                {
+                    //top right
+                    mineCount += (gridCells[((i * 8) + j+7)].hasMine == 1) ? 1 : 0;
+                }
+                if(j+1 < 8 && ((i * 8) + j+9) < 64)
+                {
+                    //top left
+                    mineCount += (gridCells[((i * 8) + j+9)].hasMine == 1) ? 1 : 0;
+                }
+                if((i*8 - j-9) > ((i-1) * 8) && j-1 > -1)
+                {
+                    //bottom left
+                    mineCount += (gridCells[((i * 8) + j-9)].hasMine == 1) ? 1 : 0;
+                }
+                if((i*8 + j - 7) < i*8 && (i*8 + j - 7) > -1)
+                {
+                    //bottom right
+                    mineCount += (gridCells[(i * 8 + j-7)].hasMine == 1) ? 1 : 0;
+                }
+                if((i*8 + j+8) < 64)
+                {
+                    //top middle
+                    mineCount += (gridCells[((i * 8) + j+8)].hasMine == 1) ? 1 : 0;
+                }
+                if((i*8 + j-8) > -1)
+                {
+                    //bottom middle
+                    mineCount += (gridCells[((i * 8) + j-8)].hasMine == 1) ? 1 : 0;
+                }
 
-                //-1, 0 (top middle)
-                mineCount += gridCells[(8*(i-1) + j) < 0 || (8*(i-1) + j) >= 64 ? 0 : (8*(i-1) + j) ].hasMine == 1 ? 1 : 0;
 
-                //-1, 1 (top left)
-                mineCount += gridCells[(8*(i-1) + j+1) < 0 || (8*(i-1) + j+1) >= 64  ? 0 : (8*(i-1) + j+1) ].hasMine == 1 ? 1 : 0;
+                /*
+                    +8 top middle
+                    -8 bottom middle
+                    -A (if j - 1 < 0, doesn't exist)
+                    +A (if j + 1 > 7, doesn't exist)
 
-                //0, -1 (middle left)
-                mineCount += gridCells[(8*(i) + j-1) < 0 || (8*(i) + j-1) >= 64 ? 0 : (8*(i) + j-1) ].hasMine == 1 ? 1 : 0;
-
-                //0, 1 (middle right)
-                mineCount += gridCells[(8*(i) + j+1) < 0 || (8*(i) + j+1) >= 64 ? 0 : (8*(i) + j+1) ].hasMine == 1 ? 1 : 0;
-
-                //1, -1 (bottom left)
-                mineCount += gridCells[(8*(i+1) + j-1) < 0 || (8*(i+1) + j-1) >= 64 ? 0 : (8*(i+1) + j-1) ].hasMine == 1 ? 1 : 0;
-
-                //1, 1 (bottom right)
-                mineCount += gridCells[((8*(i+1) + j+1) < 0 || (8*(i+1) + j+1) >= 64) ? 0 : (8*(i+1) + j+1) ].hasMine == 1 ? 1 : 0;
-
-                gridCells[(8*(i) + j)].mineCount = mineCount;
+                 */
+                gridCells[i*8+j].mineCount = mineCount;
             }
-
 
         }
     }
@@ -115,11 +144,22 @@ public class GridSingleton
     {
         for(int i = 1; i < 9; i++)
         {
-            for(int j = 0; j<8; j++)
-            {
-                getGridCell(i, (char)(65+j)).setRevealed();
-                updateGrid(i, (char)(65+j));
-            }
+            getGridCell(i, (char) (65 + 0)).setRevealed();
+            updateGrid(i, (char) (65 + 0));
+            getGridCell(i, (char) (65 + 1)).setRevealed();
+            updateGrid(i, (char) (65 + 1));
+            getGridCell(i, (char) (65 + 2)).setRevealed();
+            updateGrid(i, (char) (65 + 2));
+            getGridCell(i, (char) (65 + 3)).setRevealed();
+            updateGrid(i, (char) (65 + 3));
+            getGridCell(i, (char) (65 + 4)).setRevealed();
+            updateGrid(i, (char) (65 + 4));
+            getGridCell(i, (char) (65 + 5)).setRevealed();
+            updateGrid(i, (char) (65 + 5));
+            getGridCell(i, (char) (65 + 6)).setRevealed();
+            updateGrid(i, (char) (65 + 6));
+            getGridCell(i, (char) (65 + 7)).setRevealed();
+            updateGrid(i, (char) (65 + 7));
 
         }
     }

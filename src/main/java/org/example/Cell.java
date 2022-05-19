@@ -45,8 +45,8 @@ public class Cell
 
             }
         }
+        //return returnChar = (char)(48+this.mineCount);
         return returnChar;
-
     }
 
 }
