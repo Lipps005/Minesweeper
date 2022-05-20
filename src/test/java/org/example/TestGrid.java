@@ -38,4 +38,5 @@ public class TestGrid
         Assertions.assertEquals(-1, GridSingleton.getInstance().getGridCell(1, 'A').hasMine, "Set cell has mine");
     }
 
+
 }

@@ -22,7 +22,12 @@ public class Cell
 
     public void setRevealed()
     {
+
         this.revealed = 1;
+        if(this.revealed ==1 || this.observed == 1)
+        {
+            GridSingleton.getInstance().updateCellsPlayedCount();
+        }
         GridSingleton.getInstance().updateGrid(GridPosition);
     }
     public void setObserved()
@@ -31,6 +36,10 @@ public class Cell
         if(this.hasMine == -1)
         {
             this.revealed = 1;
+        }
+        if(this.revealed ==1 || this.observed == 1)
+        {
+            GridSingleton.getInstance().updateCellsPlayedCount();
         }
         GridSingleton.getInstance().updateGrid(GridPosition);
     }

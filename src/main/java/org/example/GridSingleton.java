@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class GridSingleton
 {
-    //set seed for random so we can repeat the testing and still get the same results.
+    //set seed for random, so we can repeat the testing and still get the same results.
     private static final Random random = new Random();
     //Singleton pattern because we only want a single instance of the grid
     //and a global point of access.
@@ -33,6 +33,8 @@ public class GridSingleton
     private static final char[] Grid = GridTemplate.toCharArray();
 
     private static Cell[] gridCells = new Cell[64];
+
+    private int clickedCells = 0;
     private GridSingleton()
     {
         //generate new Cells
@@ -176,6 +178,13 @@ public class GridSingleton
             renderGrid();
             return false;
         }
+        if(clickedCells >= 54)
+        {
+            System.out.println(Messages.GAMEWON);
+            revealAllCells();
+            renderGrid();
+            return false;
+        }
         else
         {
             for(Cell cell : getEightAdjacent(row-1, (chr - 65)))
@@ -187,6 +196,11 @@ public class GridSingleton
             return true;
         }
 
+    }
+
+    public void updateCellsPlayedCount()
+    {
+        clickedCells++;
     }
     @TestOnly
     public static void setRandomSeed() {
